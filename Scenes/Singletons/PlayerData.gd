@@ -14,4 +14,8 @@ func _ready():
 	skill_data_file.close()
 	Player_Data = skill_data_json.result
 	
-	print(Player_Data)
+func SavePlayersIDs():
+	var save_file = File.new()
+	save_file.open(Unit_data, File.WRITE)
+	save_file.store_line(to_json(Player_Data))
+	save_file.close()

@@ -41,18 +41,31 @@ remote func AuthenticatePlayer(username, password, player_id):
 
 		randomize()
 		token = str(randi()).sha256_text() + str(OS.get_unix_time())
+		print("generating token")
 		var gameserver = "GameServer1"
 		GameServers.DistributeLoginToken(token, gameserver)
 
-	rpc_id(gateway_id, "AuthenticationResults", result, player_id)
+	rpc_id(gateway_id, "AuthenticationResults", result, player_id, token)
 	
-	
-	
-	
-	
-	
-	
-	
+
+
+remote func CreateAccount(username, password, player_id):
+	var gateway_id = get_tree().get_rpc_sender_id()
+	var result
+	var message
+	if PlayerData.Player_Data.has(username):
+		result = false
+		message = 2
+	else:
+		result = true
+		message = 3
+		PlayerData.Player_Data[username] = {"Password": password}
+		PlayerData.SavePlayersIDs()
+	print("Sending out to gateway")
+	rpc_id(gateway_id, "CreateAccountResults", result, player_id, message)
+
+
+
 
 
 

@@ -39,7 +39,7 @@ func _Peer_Connected(gameserver_ID):
 	
 
 func _Peer_Disconnected(gameserver_ID):
-	print("Game Server " + gameserver_ID + " Disconnected")
+	print("Game Server " + str(gameserver_ID) + " Disconnected")
 
 
 func DistributeLoginToken(token, gameserver):
